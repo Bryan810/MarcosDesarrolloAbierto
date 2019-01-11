@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./WEB-INF/Templates/RedesSociales.xhtml">
+
+        <ui:define name="top">
+            <h:graphicImage url="resources/Cabecera/encabezado.png"/>
+            <br/>
+            <h:form>
+
+            </h:form>
+        </ui:define>
+
+        <ui:define name="content">
+            <br/>
+            <br/>
+            <br/>
+            <h:form>
+                <h:commandLink >
+                    <h:graphicImage style="margin-left: 450px" url="resources/RedesSociales/face.png" />
+                </h:commandLink>
+                <br/>
+                <h:commandLink  >
+                    <h:graphicImage style="margin-left: 500px" url="resources/RedesSociales/twitter.png" />
+                </h:commandLink>
+                <br/>
+                <h:commandLink action="LogIn.xhtml">
+                    <h:graphicImage  url="resources/RedesSociales/volver.png" />
+                </h:commandLink>
+                <br/>
+
+            </h:form>
+        </ui:define>
+        <ui:define name="bottom">
+            <br/>
+            <p:fieldset>
+                <h:graphicImage url="resources/Cabecera/piedepagina.png"/>
+            </p:fieldset>
+        </ui:define>
+    </ui:composition>
+</html>
+

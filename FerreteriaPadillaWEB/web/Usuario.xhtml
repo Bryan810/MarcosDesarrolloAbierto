@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Items en inventario</title>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="./WEB-INF/Templates/plantilla.xhtml">
+
+            <ui:define name="top">
+                <h:graphicImage url="resources/Cabecera/encabezado.png"/>
+
+                <br></br>
+            </ui:define>
+            <ui:define name="content">
+                <style type="text/css">
+                    body{
+                        background-image: url(resources/Cabecera/fondo.png)     
+                    }
+                </style>
+                <h:form>
+                    <h1>Lista De Productos</h1>
+                    <p:dataTable id="TablaProductos" value="#{productoBean.productos}" var="a" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="1,5,10" currentPageReportTemplate="Página: ({currentPage} de {totalPages})">
+                        <p:column headerText="Nombre" filterBy="#{a.nombre}" filterMatchMode="contains">
+                            <h:outputText value="#{a.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Marca">
+                            <h:outputText value="#{a.marca}"/>
+                        </p:column>
+                        <p:column headerText="Existencias">
+                            <h:outputText value="#{a.existencias}"/>
+                        </p:column>
+                        <p:column headerText="Descripción">
+                            <h:outputText value="#{a.descripcion}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+                    <p:fieldset legend="Zona de Descargas" >
+                        <h:commandLink>
+                            <h:graphicImage style="margin-left: 250px" url="resources/Iconos/pdf.png" dir="LTR"/>
+                            <p:dataExporter type="pdf" target="TablaProductos" fileName="Productos En Stock Ferreteria Padilla S.A"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <h:graphicImage url="resources/Iconos/excel.png" dir="LTR"/>
+                            <p:dataExporter type="xls" target="TablaProductos" fileName="Productos En Stock Ferreteria Padilla S.A"/>
+                        </h:commandLink>
+                    </p:fieldset>
+                    <br/>
+                    <h:commandLink action="LogIn.xhtml">
+                        <h:graphicImage url="resources/RedesSociales/volver.png" />
+                    </h:commandLink>
+                </h:form>
+            </ui:define>
+            <ui:define name="bottom">
+                <h:graphicImage url="resources/Cabecera/piedepagina.png"/>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,19 @@
+/* 
+    Document   : LogIn
+    Created on : 10-jul-2017, 23:44:14
+    Author     : Usuario1
+    Description:
+        Purpose of the stylesheet follows.
+*/
+#principal{
+    width: 1366px;
+    margin: 0 auto;
+    
+}
+#cuadro{
+    margin: 100px auto;
+    width: 30% !important; 
+    text-align: center;
+    
+}
+

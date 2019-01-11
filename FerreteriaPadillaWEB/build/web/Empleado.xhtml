@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Registro De Nuevos Usuarios</title>
+    </h:head>
+    <h:body >
+        <ui:composition template="./WEB-INF/Templates/plantilla.xhtml">
+
+            <ui:define name="top">
+                <h:graphicImage url="resources/Cabecera/encabezado.png"/>
+
+                <br></br>
+            </ui:define>
+            <ui:define name="content">
+                <br/>
+                <h:form>
+                    <h:graphicImage url="resources/CerrarSesion/1a.png"/>
+                    <h:commandLink action="LogIn.xhtml">
+                        <h:graphicImage url="resources/CerrarSesion/1b.png"/>
+                    </h:commandLink>
+                </h:form>
+                <div>
+                    <h1>            Registro Y Edicion De Empleados</h1>
+                </div>
+                <style type="text/css">
+                    body{
+                        background-image: url(resources/Cabecera/fondo.png)     
+                    }
+                </style>
+                <h:form id="fa" >
+
+                    <p:fieldset legend="Datos Empleado">
+                        <p:growl id="msg"/>
+                        <h:panelGrid id="datos" columns="3">
+                            <h:outputLabel for="txtNombre" value="Nombre:"></h:outputLabel>
+                            <p:inputText id="txtNombre" value="#{empleadoBean.nombre}" required="true"/>
+                            <p:message for="txtNombre"/>
+                            <h:outputLabel for ="txtApellido" value="Apellido:"></h:outputLabel>
+                            <p:inputText id="txtApellido" value="#{empleadoBean.apellido}" required="true"/>
+                            <p:message for="txtApellido"/>
+                            <h:outputLabel for="txtCedula" value="Cedula:"></h:outputLabel>
+                            <p:inputText id="txtCedula" value="#{empleadoBean.cedula}" required="true"/>
+                            <p:message for="txtCedula"/>
+                            <h:outputLabel value="Dept:"></h:outputLabel>
+                            <p:selectOneMenu id="txtDepartamento" value="#{empleadoBean.departamento.idDepartamento}">
+                                <f:selectItems value="#{departamentoBean.departamentos}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.idDepartamento}"/>
+                            </p:selectOneMenu>
+                            <h:outputLabel value=""></h:outputLabel>
+                            <h:outputLabel for="txtSalario" value="Salario:"></h:outputLabel>
+                            <p:inputText id="txtSalario" value="#{empleadoBean.salario}" required="true"/>
+                            <p:message for="txtSalario"/>
+                            <h:outputLabel value="Cargo:"></h:outputLabel>
+                            <p:selectOneMenu value="#{empleadoBean.cargo}">
+                                <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                                <f:selectItem itemLabel="Inventario" itemValue="Inventario"/>
+                                <f:selectItem itemLabel="Usuario" itemValue="null"/>
+                            </p:selectOneMenu>
+                            <br></br>
+                        </h:panelGrid>
+                        <br></br>
+                        <h:panelGrid id="contraseñas" columns="2">
+                            <h:outputLabel value="Contraseña:"></h:outputLabel>
+                            <p:password id="clave1" value="#{empleadoBean.clave}"
+                                        validatorMessage="Las contraseñas ingresadas no coinciden" weakLabel="Debil" goodLabel="Buena" strongLabel="Fuerte"
+                                        match="clave2" feedback="true" promptLabel="Ingrese Una Clave" required="true"/>
+                            <h:outputText value="Repetir Contraseña:"></h:outputText>
+                            <p:password id="clave2"/>
+                            <br></br>
+                        </h:panelGrid>
+                        <p:commandButton icon ="ui-icon-plusthick" actionListener="#{empleadoBean.crearEmpleado()}" value="Crear Empleado" update="fa,contraseñas,datos" />
+
+                    </p:fieldset>
+                    <br></br>
+                    <p:fieldset legend="Empleados Registrados">
+                        <p:dataTable value="#{empleadoBean.empleados}" var="a" editable="true" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="1,5" currentPageReportTemplate="Página: ({currentPage} de {totalPages})">
+                            <p:ajax event="rowEdit" listener="#{empleadoBean.actualizarEmpleado}" update=":fa:msg:"/>
+                            <p:ajax event="rowEditCancel" listener="#{empleadoBean.cancelar}" update=":fa:msg:"/>
+
+                            <p:column filterBy="#{a.nombre}" filterMatchMode="contains" headerText="Nombre" >
+
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{a.nombre}"/>
+                                    </f:facet>
+                                    <f:facet name="input" >
+                                        <p:inputText value="#{empleadoBean.nombre}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Apellido">
+
+
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{a.apellido}"/>
+                                    </f:facet>
+                                    <f:facet name="input" >
+                                        <p:inputText value="#{empleadoBean.apellido}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+
+                            </p:column>
+
+                            <p:column headerText="Cedula">
+
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{a.cedula}"/>
+                                    </f:facet>
+                                    <f:facet name="input" >
+                                        <p:inputText value="#{empleadoBean.cedula}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+
+                            </p:column>
+
+                            <p:column headerText="Cargo">
+
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{a.cargo}"/>
+                                    </f:facet>
+                                    <f:facet name="input" >
+                                        <p:selectOneMenu value="#{empleadoBean.cargo}">
+                                            <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                                            <f:selectItem itemLabel="Inventario" itemValue="Inventario"/>
+                                            <f:selectItem itemLabel="Usuario" itemValue="null"/>
+                                        </p:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Salario">
+
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{a.salario}"/>
+                                    </f:facet>
+                                    <f:facet name="input" >
+                                        <p:inputText value="#{empleadoBean.cedula}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Departamento">
+
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{a.idDepartamento.nombre}"/>
+                                    </f:facet>
+                                    <f:facet name="input" >
+                                        <p:selectOneMenu id="txtDepartamento" value="#{empleadoBean.departamento.idDepartamento}">
+                                            <f:selectItems value="#{departamentoBean.departamentos}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.idDepartamento}"/>
+                                        </p:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column >
+                                <p:rowEditor/>
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:fieldset>
+                </h:form>
+                <h:form>
+                    <p:fieldset >
+                        <p:commandButton style="margin-left: 600px" value="Eliminar Empleado" icon="ui-icon-trash" action="EliminarEmpleado.xhtml?faces-redirect=true"/>
+                    </p:fieldset>
+                </h:form>
+            </ui:define>
+            <ui:define name="bottom">
+                <h:graphicImage url="resources/Cabecera/piedepagina.png"/>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

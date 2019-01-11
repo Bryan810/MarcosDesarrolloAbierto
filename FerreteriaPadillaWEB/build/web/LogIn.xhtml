@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:body id="principal">
+        <ui:composition template="./WEB-INF/Templates/plantillaLogIn.xhtml">
+
+            <ui:define name="top">
+                <h:graphicImage url="resources/Cabecera/encabezado.png"/>
+            </ui:define>
+
+            <ui:define name="content">
+                <style type="text/css">
+                    body{
+                        background-image: url(resources/Cabecera/fondo.png)     
+                    }
+                </style>
+                <h:outputStylesheet library="css" name="LogIn.css"/>
+                <div id="cuadro" >
+                    <h:form>
+                        <p:messages autoUpdate="true" showDetail="true"/>
+                        <h:panelGrid columns="2" >
+                            <p:outputLabel for="txtUsuario" value="Usuario" />
+                            <p:inputText id="txtUsuario" value="#{empleadoBean.empleado.nombre}" required="true"/>
+                            <p:outputLabel for="txtClave" value="Clave"/>
+                            <p:password id="txtClave" value="#{empleadoBean.empleado.clave}" required="true"/>
+                            <h:column/>
+                            <p:commandButton icon="ui-icon-key" value="Iniciar Sesion" action="#{empleadoBean.iniciarSesion()}"/>
+                        </h:panelGrid>
+                        <p:separator/>
+
+                    </h:form>
+                </div>
+
+
+            </ui:define>
+            <ui:define name="bottom">
+                <h:form>
+                    <h:commandLink action="Usuario.xhtml">
+                        <h:graphicImage url="resources/ImagenInventario/inventario.png" />
+                    </h:commandLink>
+                    <h:commandLink action="RedesSociales.xhtml">
+                        <h:graphicImage url="resources/RedesSociales/contacto.png" />
+                    </h:commandLink>
+                    <h:graphicImage url="resources/Cabecera/piedepagina.png"/>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+

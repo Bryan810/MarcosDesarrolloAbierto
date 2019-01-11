@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <ui:composition template="./WEB-INF/Templates/Eliminarproducto.xhtml">
+
+            <ui:define name="top">
+                <h:graphicImage url="resources/Cabecera/encabezado.png"/>
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Eliminacion de Productos</h1>
+                <h:form id="form">
+                    <p:panelGrid columns="2" >
+                        <p:commandButton value="ID: " actionListener="#{productoBean.buscarProducto}" icon="ui-icon-circle-zoomin" update="form"/>
+
+                        <p:inputText value="#{productoBean.id}"> </p:inputText>
+                    </p:panelGrid>
+                    <h:panelGrid columns="2" columnClasses="column" cellpadding="5" >
+                        <h:outputLabel value="ID:"></h:outputLabel>
+                        <h:outputLabel value="#{productoBean.id}"></h:outputLabel>
+                        <h:outputLabel value="Nombre:"></h:outputLabel>
+                        <h:outputLabel value="#{productoBean.nombre}" />
+                        <h:outputLabel value="Marca:"></h:outputLabel>
+                        <h:outputLabel value="#{productoBean.marca}" />
+                        <h:outputLabel value="Descripcion:"></h:outputLabel>
+                        <h:outputLabel value="#{productoBean.descripcion}" />
+                        <h:outputLabel value="Existencias:"></h:outputLabel>
+                        <h:outputLabel value="#{productoBean.existencias}" />
+                    </h:panelGrid>
+                    <p:dataTable value="#{productoBean.productos}" var="a" editable="true" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="1,5,10,15" currentPageReportTemplate="Página: ({currentPage} de {totalPages})">
+                        <p:column  headerText="ID" >
+                            <h:outputText value="#{a.idProducto}"/>
+                        </p:column>
+                        <p:column filterBy="#{a.nombre}" filterMatchMode="contains" headerText="Nombre" >
+                            <h:outputText value="#{a.nombre}"/>
+                        </p:column>
+                        <p:column  headerText="Marca" >
+                            <h:outputText value="#{a.marca}"/>
+                        </p:column>
+                        <p:column  headerText="Existencias" >
+                            <h:outputText value="#{a.existencias}"/>
+                        </p:column>
+                        <p:column  headerText="Descripcion" >
+                            <h:outputText value="#{a.descripcion}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:fieldset >
+                        <p:commandButton style="margin-left: 600px" value="Eliminar" icon="ui-icon-trash" actionListener="#{productoBean.eliminarProducto()}" update="form"/>
+                    </p:fieldset>
+
+                    <h:commandLink action="Producto.xhtml">
+                        <h:graphicImage url="resources/RedesSociales/volver.png" />
+                    </h:commandLink>
+                </h:form>
+            </ui:define>
+            <ui:define name="bottom">
+                <p:fieldset>
+                    <h:graphicImage url="resources/Cabecera/piedepagina.png"/>
+                </p:fieldset>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+

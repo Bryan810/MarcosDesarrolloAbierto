@@ -1,0 +1,20 @@
+/* 
+    Document   : Empleado
+    Created on : 10-jul-2017, 23:52:22
+    Author     : Usuario1
+    Description:
+        Purpose of the stylesheet follows.
+*/
+#principal{
+    width: 1366px;
+    margin: 0 auto;
+    
+}
+
+#cuadro{
+    margin: 0px auto;
+    width: 99% !important; 
+    text-align: left;
+    
+}
+

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:body>
+
+        <ui:composition template="./WEB-INF/Templates/plantillaProductos.xhtml">
+
+            <ui:define name="top">
+                <h:graphicImage url="resources/Cabecera/encabezado.png"/>
+            </ui:define>
+
+            <ui:define name="content">
+                <br/>
+                <h:form>
+                    <h:graphicImage url="resources/CerrarSesion/1a.png"/>
+                    <h:commandLink action="LogIn.xhtml">
+                        <h:graphicImage url="resources/CerrarSesion/1b.png"/>
+                    </h:commandLink>
+                </h:form>
+                <h1>Creacion y Edición De Productos</h1>
+                <br></br>
+                <h:form id="fa" >
+                    <p:fieldset legend="Datos Producto">
+                        <p:growl id="msg"/>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Nombre"></h:outputLabel>
+                            <p:inputText value="#{productoBean.nombre}" required="true"/>
+                            <h:outputLabel value="Marca"></h:outputLabel>
+                            <p:inputText value="#{productoBean.marca}" required="true"/>
+                            <h:outputLabel value="Descripcion"></h:outputLabel>
+                            <p:inputText value="#{productoBean.descripcion}" required="true"/>
+                            <h:outputLabel value="Existencias"></h:outputLabel>
+                            <p:inputText value="#{productoBean.existencias}" required="true"/>
+                            <p:commandButton actionListener="#{productoBean.crearProducto()}" icon="ui-icon-plusthick" value="Crear Producto" update="fa"/>
+                        </h:panelGrid>
+                    </p:fieldset>
+                    <br></br>
+                    <p:fieldset legend="Productos Registrados" >
+                        <p:dataTable  value="#{productoBean.productos}" var="a" editable="true" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                      rowsPerPageTemplate="1,5,10,15" currentPageReportTemplate="Página: ({currentPage} de {totalPages})">
+
+                            <p:column filterBy="#{a.nombre}" filterMatchMode="contains" headerText="Nombre" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{a.nombre}"/>
+                                    </f:facet>
+                                    <f:facet name="input" >
+                                        <p:inputText value="#{productoBean.nombre}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Marca">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{a.marca}"/>
+                                    </f:facet>
+                                    <f:facet name="input" >
+                                        <p:inputText value="#{productoBean.marca}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Existencias">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{a.existencias}"/>
+                                    </f:facet>
+                                    <f:facet name="input" >
+                                        <p:inputText value="#{productoBean.existencias}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Descripción">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{a.descripcion}"/>
+                                    </f:facet>
+                                    <f:facet name="input" >
+                                        <p:inputText value="#{productoBean.descripcion}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column >
+                                <p:rowEditor/>
+                            </p:column>
+                            <p:ajax event="rowEdit" listener="#{productoBean.actualizar}" update=":fa:msg"/>
+                            <p:ajax event="rowEditCancel" listener="#{productoBean.cancelar}" update=":fa:msg"/>
+                        </p:dataTable>
+                    </p:fieldset>
+
+                </h:form>
+                <h:form>
+                    <p:fieldset >
+                        <p:commandButton style="margin-left: 600px" value="Eliminar Productos" icon="ui-icon-trash" action="EliminarProducto.xhtml?faces-redirect=true"/>
+                    </p:fieldset>
+                </h:form>
+
+            </ui:define>
+            <ui:define name="bottom">
+
+                <p:fieldset>
+                    <h:graphicImage url="resources/Cabecera/piedepagina.png"/>
+                </p:fieldset>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+
